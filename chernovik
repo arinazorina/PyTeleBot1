@@ -1,0 +1,6 @@
+import requests
+from bs4 import BeautifulSoup
+array_comp=[]
+        req = requests.get('http://freegenerator.ru/compliment')
+        soup = BeautifulSoup(req.text, "html.parser")
+        bot.send_message(chat_id, text=soup)

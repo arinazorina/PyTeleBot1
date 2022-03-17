@@ -3,6 +3,7 @@
 import telebot  # pyTelegramBotAPI	4.3.1
 from telebot import types
 
+
 bot = telebot.TeleBot('5015391881:AAEq_NV09_lq4cPdyBUYlwBu-HtUmF6wpHI')  # Создаем экземпляр бота
 
 # -----------------------------------------------------------------------
@@ -56,9 +57,20 @@ def get_text_messages(message):
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         btn1 = types.KeyboardButton("Прислать собаку")
         btn2 = types.KeyboardButton("Прислать анекдот")
+        btn3 = types.KeyboardButton("Овен")
         back = types.KeyboardButton("Вернуться в главное меню")
-        markup.add(btn1, btn2, back)
+        markup.add(btn1, btn2, btn3, back)
         bot.send_message(chat_id, text="Развлечения", reply_markup=markup)
+
+    elif ms_text == "Овен":
+        import requests
+        from bs4 import BeautifulSoup
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        req = requests.get('https://horo.mail.ru/prediction/aries/today/')
+        soup = BeautifulSoup(req.text, "html.parser")
+        allgoros = soup.findAll('div', class_='article__item article__item_alignment_left article__item_html')
+        bot.send_message(chat_id, text=allgoros)
+
 
     elif ms_text == "/dog" or ms_text == "Прислать собаку":  # .........................................................
         bot.send_message(chat_id, text="🐕")
@@ -71,8 +83,6 @@ def get_text_messages(message):
         bot.send_photo(message.chat.id, img2)
     elif ms_text == 'Даня говноед':
         bot.send_message(chat_id, text="💩")
-
-
 
     elif ms_text == "Управление":  # ...................................................................................
         bot.send_message(chat_id, text="еще не готово...")
@@ -143,7 +153,6 @@ def get_text_messages(message):
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     elif ms_text == "Задание 10":
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-
 
 
     else:# ...........................................................................................................
