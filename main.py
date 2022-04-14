@@ -2,7 +2,7 @@
 
 import telebot  # pyTelegramBotAPI	4.3.1
 from telebot import types
-
+import DZ
 
 bot = telebot.TeleBot('5015391881:AAEq_NV09_lq4cPdyBUYlwBu-HtUmF6wpHI')  # Создаем экземпляр бота
 
@@ -121,14 +121,9 @@ def get_text_messages(message):
             age = inputBot(message, "Введите верный возраст")
         bot.send_message(chat_id, text="Ого, тебе уже " + age +"! Выглядишь намного моложе")
     elif ms_text == 'Задание 1':
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        myname = 'Арина'
-        bot.send_message(chat_id, text="Привет, меня зовут " + myname)
+        DZ.dz1(bot, chat_id)
     elif ms_text == 'Задание 2':
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        myname = 'Арина'
-        myage = '18'
-        bot.send_message(chat_id, text="Привет, меня зовут " + myname+', мне '+myage)
+        DZ.dz2(bot, chat_id)
     elif ms_text == 'Задание 3':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         myname = 'Арина'
