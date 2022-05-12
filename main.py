@@ -48,9 +48,8 @@ def get_text_messages(message):
         btn2 = types.KeyboardButton("WEB-камера")
         btn3 = types.KeyboardButton("Управление")
         btn4 = types.KeyboardButton('дз')
-        btn5 = types.KeyboardButton('Даня говноед')
         back = types.KeyboardButton("Помощь")
-        markup.add(btn1, btn2, btn3, btn4, btn5, back)
+        markup.add(btn1, btn2, btn3, btn4, back)
         bot.send_message(chat_id, text="Вы в главном меню", reply_markup=markup)
 
     elif ms_text == "Развлечения":  # ..................................................................................
@@ -81,8 +80,6 @@ def get_text_messages(message):
     elif ms_text == "WEB-камера":
         img2 = open('кот.jpg', 'rb')
         bot.send_photo(message.chat.id, img2)
-    elif ms_text == 'Даня говноед':
-        bot.send_message(chat_id, text="💩")
 
     elif ms_text == "Управление":  # ...................................................................................
         bot.send_message(chat_id, text="еще не готово...")
@@ -109,45 +106,27 @@ def get_text_messages(message):
         back = types.KeyboardButton("Вернуться в главное меню")
         markup.add(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, back)
         bot.send_message(chat_id, text='дз', reply_markup=markup)
-    elif ms_text == 'Задание 4':
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        key1 = types.InlineKeyboardMarkup()
-        name = inputBot(message, "Как Вас зовут?")
-        while name.isnumeric() == True:
-            name = inputBot(message, "Введите верное имя")
-        bot.send_message(chat_id, text="Приятно познакомиться, " + name)
-        age=inputBot(message, "Сколько тебе лет?")
-        while age.isnumeric()==False:
-            age = inputBot(message, "Введите верный возраст")
-        bot.send_message(chat_id, text="Ого, тебе уже " + age +"! Выглядишь намного моложе")
     elif ms_text == 'Задание 1':
         DZ.dz1(bot, chat_id)
     elif ms_text == 'Задание 2':
         DZ.dz2(bot, chat_id)
     elif ms_text == 'Задание 3':
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        myname = 'Арина'
-        myname2=myname*5
-        bot.send_message(chat_id, text="Мое имя 5 раз подряд: " + myname2)
+        DZ.dz3(bot, chat_id)
+    elif ms_text == 'Задание 4':
+        DZ.dz4(bot, chat_id, message)
     elif ms_text == 'Задание 5':
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        how_old_are_u = int(inputBot(message, "Сколько тебе лет?"))
-        if (int(how_old_are_u) > 0) and (how_old_are_u < 18):
-            bot.send_message(chat_id, text="Никто не определит Ваш возраст лучше, чем продавщица сигарет в ларьке.")
-        elif (how_old_are_u > 150) or (how_old_are_u < 0):
-            bot.send_message(chat_id, text="Введен неверный возраст")
-        else:
-            bot.send_message(chat_id, text="Не могу поверить, что в детстве люди такого возраста казались мне взрослыми.")
+        DZ.dz5(bot, chat_id)
     elif ms_text == "Задание 6":
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        DZ.dz6(bot, chat_id)
     elif ms_text == "Задание 7":
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        DZ.dz7(bot, chat_id)
     elif ms_text == "Задание 8":
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        DZ.dz8(bot, chat_id)
     elif ms_text == "Задание 9":
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        DZ.dz9(bot, chat_id)
     elif ms_text == "Задание 10":
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        DZ.dz10(bot, chat_id)
+
 
 
     else:# ...........................................................................................................
