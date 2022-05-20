@@ -1,5 +1,9 @@
 import telebot
 from telebot import types
+from random import *
+
+
+gameb = ['Камень', 'Ножницы', 'Бумага']
 
 
 def my_input(bot, chat_id, txt, ResponseHandler):
@@ -59,22 +63,114 @@ def dz4_2(message, bot):
 
 
 
-def dz5(bot, chat_id):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+def dz5(bot, chat_id, message):
+    bot.send_message(chat_id, "Как тебя зовут?")
+    bot.register_next_step_handler(message, dz5_1, bot)
 
+def dz5_1(message, bot):
+    global name2
+    name2 = message.text
+    name2 = name2[7::-1]
+    bot.send_message(message.chat.id, "Наоборот вот так" + ' ' + name2)
 
 def dz6(bot, chat_id):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     dz6_ResponseHandler = lambda message: bot.send_message(chat_id,
                                                            f"Добро пожаловать {message.text}! У тебя красивое имя, в нём {len(message.text)} букв!")
     my_input(bot, chat_id, "Как тебя зовут?", dz6_ResponseHandler)
-def dz7(bot, chat_id):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-def dz8(bot, chat_id):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-def dz9(bot, chat_id):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
 
-def dz10(bot, chat_id):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+def dz7(bot, chat_id, message):
+    bot.send_message(chat_id, 'Как тебя зовут?')
+    bot.register_next_step_handler(message, dz7_1, bot)
+
+def dz7_1(message, bot):
+    global name4
+    name4 = message.text
+    if name4.islower() == True:
+        bot.send_message(message.chat.id, 'Есть нижний регитср')
+    elif name4.isupper() == True:
+        bot.send_message(message.chat.id, 'Есть верхний регитср')
+    else:
+        bot.send_message(message.chat.id, 'Есть верхний регитср и нижний')
+
+def dz8(bot, chat_id, message):
+    bot.send_message(chat_id, "Как тебя зовут?")
+    bot.register_next_step_handler(message, dz8_1, bot)
+
+def dz8_1(message, bot):
+    global name5
+    name5 = message.text
+    for i in name5:
+        if i == " ":
+            bot.send_message(message.chat.id, 'Введите имя без пробелов')
+
+        elif i == "0" or i == "1" or i == "2" or i == "3" or i == "4" or i == "5" or i == "6" or i == "7" or i == "8" or i == "9":
+            bot.send_message(message.chat.id, 'Введите имя без цифр')
+
+    bot.send_message(message.chat.id, 'Сколько тебе лет?')
+    bot.register_next_step_handler(message, dz8_2, bot)
+def dz8_2(message, bot):
+    global age5
+    age5 = int(message.text)
+    while age5 == 0:
+        try:
+            age5 = int(message.text)
+        except Exception:
+            bot.send_message(message.chat.id, "Вводите коректные цифры!!!!")
+    if age5 < 150 and age5 > 0:
+        bot.send_message(message.chat.id,
+                         ' Твоё имя без ошибок ' + name5 + ' Нормальный возраст ' + ' ' + str(age5) + ' ')
+
+def dz9(bot, chat_id, message):
+    bot.send_message(chat_id, '2+2*2?')
+    bot.register_next_step_handler(message, dz9_1, bot)
+
+def dz9_1(message, bot):
+    global age
+    age = int(message.text)
+    while age == 0:
+        try:
+            age = int(message.text)
+        except Exception:
+            bot.send_message(message.chat.id, "Вводите цифры!!!!")
+    if age == 6:
+        bot.send_message(message.chat.id, "Правильно")
+    else:
+        bot.send_message(message.chat.id, "Попробуй еще раз")
+    age = 0
+
+
+# -----------------------------------------------------------------------
+
+
+def dz10(bot, chat_id, message):
+    bot.send_message(chat_id, 'Камень, ножницы или бумага?')
+    bot.register_next_step_handler(message, reg_game, bot)
+def reg_game(message, bot):
+    global game
+    global gameb
+    global value
+    value = choice(gameb)
+    game = message.text
+    if game == 'Камень' or game == 'камень':
+        if value == 'Камень' or value == 'камень':
+            bot.send_message(message.chat.id, 'Ничья)))')
+        if value == 'Ножницы' or value == 'ножницы':
+            bot.send_message(message.chat.id, 'Вы победили, я поставила ножницы')
+        if value == 'Бумага' or value == 'бумага':
+            bot.send_message(message.chat.id, 'Вы проиграли , я поставила бумагу')
+    if game == 'Ножницы' or game == 'ножницы':
+        if value == 'Камень' or value == 'камень':
+            bot.send_message(message.chat.id, 'Вы проиграли , я поставила камень')
+        if value == 'Ножницы' or value == 'ножницы':
+            bot.send_message(message.chat.id, 'Ничья))')
+        if value == 'Бумага' or value == 'бумага':
+            bot.send_message(message.chat.id, 'Вы выиграли , я поставила бумагу')
+    if game == 'Бумага' or game == 'бумага':
+        if value == 'Камень' or value == 'камень':
+            bot.send_message(message.chat.id, 'Вы выиграли , я поставила камень')
+        if value == 'Ножницы' or value == 'ножницы':
+            bot.send_message(message.chat.id, 'Вы проиграли , я поставила ножницы')
+        if value == 'Бумага' or value == 'бумага':
+            bot.send_message(message.chat.id, 'Ничья)))')
 
