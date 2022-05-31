@@ -6,7 +6,7 @@ import botGames  # бот-игры, файл botGames.py
 import menuBot
 from menuBot import Menu  # в этом модуле есть код, создающий экземпляры классов описывающих моё меню
 import DZ  # домашнее задание от первого урока
-#import fun  # развлечения
+import fun  # развлечения
 #import speech  # работа с речью
 #import SECRET  # секретные ключи, пароли
 

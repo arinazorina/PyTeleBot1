@@ -5,6 +5,35 @@ from random import *
 
 gameb = ['Камень', 'Ножницы', 'Бумага']
 
+def get_text_messages(bot, cur_user, message):
+    chat_id = message.chat.id
+    ms_text = message.text
+
+    if ms_text == "Задание-1":
+        dz1(bot, chat_id)
+
+    elif ms_text == "Задание-2":
+        dz2(bot, chat_id)
+
+    elif ms_text == "Задание-3":
+        dz3(bot, chat_id)
+
+    elif ms_text == "Задание-4":
+        dz4(bot, chat_id, message)
+
+    elif ms_text == "Задание-5":
+        dz5(bot, chat_id, message)
+
+    elif ms_text == "Задание-6":
+        dz6(bot, chat_id)
+    elif ms_text == "Задание-7":
+        dz7(bot, chat_id, message)
+    elif ms_text == "Задание-8":
+        dz8(bot, chat_id, message)
+    elif ms_text == "Задание-9":
+        dz9(bot, chat_id, message)
+    elif ms_text == "Задание-10":
+        dz10(bot, chat_id, message)
 
 def my_input(bot, chat_id, txt, ResponseHandler):
     message = bot.send_message(chat_id, text=txt)
