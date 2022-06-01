@@ -19,21 +19,35 @@ def get_text_messages(bot, cur_user, message):
     elif ms_text == "Прислать анекдот":
         bot.send_message(chat_id, text=get_anekdot())
 
-    elif ms_text == "Прислать новости":
-        bot.send_message(chat_id, text=get_news())
+    #elif ms_text == "Прислать новости":
+        #bot.send_message(chat_id, text=get_news())
 
     elif ms_text == "Прислать фильм":
         send_film(bot, chat_id)
 
     elif ms_text == "Угадай кто?":
         get_ManOrNot(bot, chat_id)
+    elif ms_text == "Прислать кота":
+        bot.send_photo(chat_id, photo=get_catURL(), caption="Вот тебе кошечка!")
 
-    elif ms_text == "Прислать курсы":
-        bot.send_message(chat_id, text=get_cur())
+    #elif ms_text == "Прислать курсы":
+        #bot.send_message(chat_id, text=get_cur())
+    elif ms_text == "Гороскоп":
+        get_goro(bot, chat_id)
+
 
 
 
 # -----------------------------------------------------------------------
+def get_goro(bot, chat_id):
+    import requests
+    from bs4 import BeautifulSoup
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    req = requests.get('https://horo.mail.ru/prediction/aries/today/')
+    soup = BeautifulSoup(req.text, "html.parser")
+    allgoros = soup.findAll('div', class_='article__item article__item_alignment_left article__item_html')
+    bot.send_message(chat_id, text=allgoros)
+
 def send_film(bot, chat_id):
     film = get_randomFilm()
     info_str = f"<b>{film['Наименование']}</b>\n" \
@@ -64,6 +78,15 @@ def get_anekdot():
 
 
 # -----------------------------------------------------------------------
+def get_catURL():
+        url = ""
+        req = requests.get("https://api.thecatapi.com/v1/images/search")
+        if req.status_code == 200:
+            r_json = req.json()
+            url = r_json[0]["url"]
+        return url
+
+
 def get_news():
     array_anekdots = []
     req_anek = requests.get('https://www.banki.ru/news/lenta')
